@@ -1,0 +1,10 @@
+<resources>
+    <!-- Brand palette, mirrored from frontend (FRONTEND_PLAN §20).
+         Compose uses these via androidx.compose.ui.graphics.Color, not
+         XML — but the manifest's windowBackground reference needs at
+         least one entry here. Keep slate-900 + the brand teal/cyan. -->
+    <color name="sumo_slate_900">#0F172A</color>
+    <color name="sumo_slate_800">#1E293B</color>
+    <color name="sumo_teal_600">#0D9488</color>
+    <color name="sumo_cyan_600">#0891B2</color>
+</resources>

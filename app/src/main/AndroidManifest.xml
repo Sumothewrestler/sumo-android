@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- ===== Permissions ===================================================
+         RECORD_AUDIO       — the in-app voice loop needs the mic.
+         INTERNET           — talks to api.pentadsumo.rfidpro.in over HTTPS.
+         ACCESS_NETWORK_STATE — let OkHttp react sensibly when the network drops.
+         FOREGROUND_SERVICE + FOREGROUND_SERVICE_DATA_SYNC — required for
+            the optional DueTaskService (60s polling reminders). We use the
+            "data_sync" type because the service does NOT need always-on
+            mic access; it only polls + plays TTS at scheduled moments.
+            That avoids the heavier "microphone" foreground-service type
+            and the always-listening notification UX.
+         POST_NOTIFICATIONS — Android 13+ requires runtime grant for any
+            notification, including the foreground-service one.
+         RECEIVE_BOOT_COMPLETED + USE_EXACT_ALARM — future v2 path if we
+            move reminders to AlarmManager. Declared here so a v2 upgrade
+            doesn't require a permission re-prompt; harmless if unused.
+    -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- Bluetooth scan/connect permissions are NOT declared.
+         When a Bluetooth headset is paired and selected as the active audio
+         device, Android routes our MediaPlayer + SpeechRecognizer audio to
+         it automatically via the standard A2DP/SCO profiles. No app-side
+         Bluetooth code required for v1. -->
+
+    <queries>
+        <!-- Lets us discover SpeechRecognizer providers (some devices ship
+             multiple). Required since Android 11. -->
+        <intent>
+            <action android:name="android.speech.RecognitionService" />
+        </intent>
+    </queries>
+
+    <application
+        android:name=".SumoApp"
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Sumo"
+        tools:targetApi="34">
+
+        <!-- ============ Login (one-time first launch) ===================== -->
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Sumo" />
+
+        <!-- ============ Main (voice-only screen) ========================= -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Sumo">
+
+            <!-- Home-screen icon entry -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- Google Assistant App Shortcut entry.
+                 "Hey Google, open Sumo" → Assistant indexes our shortcut
+                 → launches MainActivity with autoListen=true.
+
+                 BAL (Background Activity Launch) restrictions don't
+                 affect Assistant intents since they're launched while
+                 Assistant itself is foreground. -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="sumo" android:host="open" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity>
+
+        <!-- ============ Foreground service for spoken reminders ========== -->
+        <service
+            android:name=".service.DueTaskService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+
+    </application>
+</manifest>

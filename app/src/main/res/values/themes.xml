@@ -1,0 +1,18 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base theme: Material 3 dynamic, edge-to-edge. Actual colors are
+         driven by Compose (no XML color references) so we keep the
+         palette in one place (ui/Color.kt). -->
+    <style name="Theme.Sumo" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">#0F172A</item> <!-- slate-900 -->
+        <item name="android:navigationBarColor">#0F172A</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:windowBackground">@color/sumo_slate_900</item>
+    </style>
+
+    <!-- Splash screen during the brief cold start. Same slate-900 so the
+         user perceives an instant launch into the app's own canvas. -->
+    <style name="Theme.Sumo.Splash" parent="Theme.Sumo">
+        <item name="android:windowBackground">@color/sumo_slate_900</item>
+    </style>
+</resources>

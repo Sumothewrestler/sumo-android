@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Teal-to-cyan gradient circle, brand-matched to the webapp's
+     PowerTab/PowerBar pills. The full 108x108 canvas gets the
+     gradient; the launcher framework masks it into a circle/squircle
+     depending on launcher style. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:pathData="M0,0h108v108h-108z">
+        <aapt:attr xmlns:aapt="http://schemas.android.com/aapt" name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="0"
+                android:startY="0"
+                android:endX="108"
+                android:endY="108">
+                <item android:offset="0" android:color="#0D9488" />
+                <item android:offset="1" android:color="#0891B2" />
+            </gradient>
+        </aapt:attr>
+    </path>
+</vector>

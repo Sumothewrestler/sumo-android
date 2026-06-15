@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Foreground glyph — a stylised "S" in white. Sits inside the
+     adaptive icon's safe zone (66dp at the centre of the 108dp canvas).
+
+     Vector path is a simple two-curve S shape; replace with a logo
+     SVG when branding lands.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M68.5,40.5 C68.5,32.5 62.5,28 54,28 C45.5,28 39,33 39,40.5 C39,48 45,52 53,53.5 L57,54.5 C63.5,56 67,58 67,62 C67,66 63.5,68.5 57,68.5 C50.5,68.5 47,66 46,62 L37,62 C37.5,72.5 45,80 56.5,80 C68,80 76,73.5 76,62.5 C76,53.5 70,49.5 60,47.5 L56,46.5 C50.5,45.5 47.5,43.5 47.5,40 C47.5,36 51,33.5 56,33.5 C61,33.5 64,36 64.5,40.5 L68.5,40.5 Z" />
+</vector>

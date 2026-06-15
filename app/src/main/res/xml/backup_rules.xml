@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- We don't back anything up. Auth tokens are device-local; re-login
+     is fine on a new device. -->
+<full-backup-content>
+    <exclude domain="sharedpref" />
+</full-backup-content>

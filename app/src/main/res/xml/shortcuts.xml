@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Google Assistant App Shortcuts.
+
+     "Hey Google, open Sumo" / "Hey Google, talk to Sumo" / "Hey Google,
+     ask Sumo" route here. The capability is OPEN_APP_FEATURE — the
+     least-friction Assistant action that just opens our app at a
+     specific entry point. Long-tail intents (CREATE_TASK, etc.) are
+     deferred to a v2 — for v1 we just want the door open.
+
+     Note: the shortcut also surfaces on a long-press of the app icon in
+     the launcher (Android 7.1+).
+-->
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <capability android:name="actions.intent.OPEN_APP_FEATURE">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="in.rfidpro.sumo"
+            android:targetClass="in.rfidpro.sumo.MainActivity">
+            <parameter
+                android:name="feature"
+                android:key="auto_listen" />
+        </intent>
+    </capability>
+
+    <shortcut
+        android:shortcutId="talk_to_sumo"
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:shortcutShortLabel="@string/shortcut_talk_short"
+        android:shortcutLongLabel="@string/shortcut_talk_long"
+        android:shortcutDisabledMessage="@string/shortcut_disabled">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="in.rfidpro.sumo"
+            android:targetClass="in.rfidpro.sumo.MainActivity">
+            <extra
+                android:name="auto_listen"
+                android:value="true" />
+        </intent>
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+
+</shortcuts>
