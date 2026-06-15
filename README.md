@@ -39,7 +39,45 @@ All TTS quality + multilingual translation is handled server-side by the existin
 
 ---
 
-## Building locally
+## Easiest way to install — GitHub Actions builds for you
+
+You don't need Android Studio, an Android SDK, or even a Mac with JDK. Every push to `main` triggers a CI build on GitHub that produces a debug APK. Three ways to get it onto your phone, in order of effort:
+
+### 🥇 Path 1 — Telegram (truly hands-free)
+
+Once you set this up, every `git push` sends the freshly-built APK straight to your Telegram. Open Telegram on your phone, tap the APK, install. No browser, no cables, no GitHub login.
+
+**One-time setup (~5 minutes):**
+
+1. In Telegram, open a chat with **@BotFather** → send `/newbot` → pick any name + username (e.g. `mysumo_bot`). BotFather replies with an HTTP API token.
+2. Send any message to your new bot (so it's allowed to DM you).
+3. Open in any browser: `https://api.telegram.org/bot<TOKEN>/getUpdates` (replace `<TOKEN>` with what BotFather gave you). Look for `"chat":{"id":NUMBER`. That number is your `chat_id`.
+4. On GitHub: repo → **Settings** → **Secrets and variables** → **Actions** → **New repository secret**. Add two secrets:
+   - `TELEGRAM_BOT_TOKEN` = the token from step 1
+   - `TELEGRAM_CHAT_ID` = the chat id from step 3
+5. Push any commit (or use the GitHub Actions "Run workflow" button manually). ~3-5 minutes later the APK lands in your Telegram chat.
+
+On the phone, first install requires allowing "install from unknown sources" for Telegram (Android prompts you once).
+
+### 🥈 Path 2 — GitHub Release link (permanent URL)
+
+Every successful build also publishes a GitHub Release with the APK attached. Open the repo on your phone's browser → Releases → tap the latest APK → install.
+
+- Pros: always available, no Telegram needed.
+- Cons: must sign into GitHub once in your phone browser (cookies stay after); slower than Telegram.
+
+### 🥉 Path 3 — Download the workflow artifact (desktop browser)
+
+On your laptop: open https://github.com/Sumothewrestler/sumo-android/actions → click the latest run → scroll to **Artifacts** → download `sumo-apk` (a zip). Unzip to get the APK. Transfer to phone however you like.
+
+- Pros: nothing else to configure.
+- Cons: requires desktop browser, an extra unzip step, and the GitHub Actions login.
+
+---
+
+## Building locally (only if you want to debug live)
+
+You only need this section if you want **logcat output, breakpoints, or live device debugging**. For just installing the app, use the CI paths above.
 
 ### Prerequisites
 
