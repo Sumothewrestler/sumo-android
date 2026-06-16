@@ -90,9 +90,11 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
-    // ---- Persistent cookie jar (carries the httpOnly refresh cookie
-    //      across app launches — see plan section 6) ----
-    implementation("com.github.franmontiel:PersistentCookieJar:v1.0.1")
+    // (Cookie persistence is rolled in-house via api/SimpleCookieJar.kt —
+    //  the franmontiel/PersistentCookieJar library is unmaintained and
+    //  JitPack started 403-ing it. Our ~80-line replacement covers the
+    //  exact use case we need: persist the httpOnly refresh cookie across
+    //  app launches.)
 
     // ---- Tests (smoke only — most logic is service-bound + needs an emulator) ----
     testImplementation("junit:junit:4.13.2")

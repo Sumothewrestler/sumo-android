@@ -1,9 +1,6 @@
 package `in`.rfidpro.sumo.api
 
 import android.content.Context
-import com.franmontiel.persistentcookiejar.PersistentCookieJar
-import com.franmontiel.persistentcookiejar.cache.SetCookieCache
-import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import `in`.rfidpro.sumo.BuildConfig
@@ -27,9 +24,7 @@ object PentadClient {
 
     val tokens: TokenStore by lazy { TokenStore(appCtx) }
 
-    val cookieJar: PersistentCookieJar by lazy {
-        PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(appCtx))
-    }
+    val cookieJar: SimpleCookieJar by lazy { SimpleCookieJar(appCtx) }
 
     val http: OkHttpClient by lazy {
         OkHttpClient.Builder()
